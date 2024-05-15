@@ -17,12 +17,14 @@ class Payment(BasePayment):
         amount: float,
         discounts: List = [],
         to_charge: Optional[float] = None,
-    ):
+        status: str = "Pending",
+        ):
         self.reference = reference
         self.payment_method = payment_method
         self.amount = amount
         self.discounts = discounts
         self.to_charge = to_charge
+        self.status = status
 
     def apply_charge(self):
         if not self.to_charge:
