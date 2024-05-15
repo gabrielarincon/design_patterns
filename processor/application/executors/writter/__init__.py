@@ -1,5 +1,4 @@
 import json
-from re import U
 from application.executors import ExecutorObserver
 
 

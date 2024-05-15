@@ -1,8 +1,6 @@
-from typing import List
 
 from application.executors.logger import PaymentLogger
 from application.executors.writter import PaymentWriter
-from application.file_reader import PaymentFileReader
 from domain.payment import Payment
 from domain.payment_methods.cash import CashPayment
 from domain.payment_methods.credit import CreditPayment
