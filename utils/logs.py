@@ -5,7 +5,7 @@ def _configure_logger():
     """
     Configura automáticamente el logger para mostrar en la consola.
     """
-    logger = logging.getLogger('mi_logger')
+    logger = logging.getLogger('__main__')
     logger.setLevel(logging.DEBUG)
     
     # Formateador

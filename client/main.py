@@ -3,11 +3,13 @@ from application.commands.add_discount_command import AddDiscountCommand
 from application.commands.pay_command import PayCommand
 from application.commands.undo_payment_command import UndoPaymentCommand
 from application.data_store import DataStore
+from application.publisher import Publisher
 
 
 class Application:
     def __init__(self):
         self.data_store = DataStore(file_name="payment_details.json")
+        self.publisher = Publisher()
         self.payment_cmd = None
 
     def display_menu(self):
@@ -92,13 +94,20 @@ class Application:
 
     def pay(self):
         if self.payment_cmd:
-            pay_command = PayCommand(payment=self.payment_cmd.payment, data_store=self.data_store)
+            pay_command = PayCommand(
+                payment=self.payment_cmd.payment,
+                publisher=self.publisher,
+                data_store=self.data_store,
+            )
             pay_command.execute()
         else:
             print("Please add a payment first.")
 
     def undo(self):
-        undo_payment_command = UndoPaymentCommand(data_store=self.data_store)
+        undo_payment_command = UndoPaymentCommand(
+            publisher=self.publisher,
+            data_store=self.data_store,
+        )
         undo_payment_command.execute()
 
 

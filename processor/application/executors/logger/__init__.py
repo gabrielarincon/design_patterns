@@ -12,4 +12,4 @@ from application.executors import ExecutorObserver
 class PaymentLogger(ExecutorObserver):
     def update(self, payment):
         """Register payment info"""
-        logger.info(payment.__dict__)
+        logger.info(f"payment processed: {payment.__dict__}")
