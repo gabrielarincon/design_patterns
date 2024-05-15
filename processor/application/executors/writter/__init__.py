@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 import json
 from application.executors import ExecutorObserver
 
@@ -37,10 +38,12 @@ class PaymentWriter(ExecutorObserver):
         existing_record = False
         for idx, _payment in enumerate(data_store.payments):
             if payment.reference == _payment["reference"]:
-                data_store.payments[idx] = payment.__dict__
+                data_store.payments[idx] = {**payment.__dict__, "to_charge": 0}
                 existing_record = True
 
         if not existing_record:
-            data_store.payments.append(payment.__dict__)
+            data_store.payments.append({**payment.__dict__, "status": "chargued"})
 
         data_store.save_payments()
+
+
