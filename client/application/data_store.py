@@ -26,4 +26,3 @@ class DataStore(metaclass=SingletonMeta):
     def save_payments(self):
         with open(self.file_name, "w") as json_file:
             json.dump(self.payments, json_file, indent=4)
-            print(f"Payments details saved to {self.file_name}")
