@@ -1,1 +1,26 @@
-[]
+[
+    {
+        "reference": "66cd3d8b-4a65-491c-8dac-0c7d4212fe9d",
+        "payment_method": "cash",
+        "amount": 12.0,
+        "discounts": [
+            {
+                "reason": "rick",
+                "discount_type": "10",
+                "value": 1.0
+            }
+        ]
+    },
+    {
+        "reference": "4e265b9f-9459-4425-b1e6-12f2a1c1d100",
+        "payment_method": "cash",
+        "amount": 100.0,
+        "discounts": []
+    },
+    {
+        "reference": "c48df8f2-c84d-4eb3-83f6-1ef5c0612587",
+        "payment_method": "cash",
+        "amount": 12.0,
+        "discounts": []
+    }
+]

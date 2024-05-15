@@ -2,6 +2,7 @@ from application.commands.add_payment_command import AddPaymentCommand
 from application.commands.add_discount_command import AddDiscountCommand
 from application.commands.pay_command import PayCommand
 from application.commands.undo_payment_command import UndoPaymentCommand
+from application.commands.show_payment_command import ShowPaymentCommand
 from application.data_store import DataStore
 from application.publisher import Publisher
 
@@ -55,6 +56,8 @@ class Application:
     def run(self):
         while True:
             self.display_menu()
+            self.show_payment()
+
             choice = input("Enter your choice: ")
 
             if choice == "1":
@@ -72,7 +75,7 @@ class Application:
                 print("Invalid choice. Please try again.")
 
     def add_payment(self):
-        payment_method = input("Enter payment method: ")
+        payment_method = input("Enter payment method [cash, debit, credit, pse]: ")
         amount = float(input("Enter payment amount: "))
         self.payment_cmd = AddPaymentCommand(payment_method=payment_method, amount=amount)
         self.payment_cmd.execute()
@@ -80,7 +83,7 @@ class Application:
     def add_discount(self):
         if self.payment_cmd:
             reason = input("Enter discount reason: ")
-            discount_type = input("Enter discount type: ")
+            discount_type = input("Enter discount type [total_amount, percentage]: ")
             value = float(input("Enter discount value: "))
             add_discount_command = AddDiscountCommand(
                 payment=self.payment_cmd.payment,
@@ -109,6 +112,11 @@ class Application:
             data_store=self.data_store,
         )
         undo_payment_command.execute()
+
+    def show_payment(self):
+        if self.payment_cmd:
+            show_payment_command = ShowPaymentCommand(payment=self.payment_cmd.payment)
+            show_payment_command.execute()
 
 
 if __name__ == "__main__":
