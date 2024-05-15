@@ -1,4 +1,5 @@
 import json
+from re import U
 from application.executors import ExecutorObserver
 
 
@@ -29,16 +30,18 @@ class DataStore(metaclass=SingletonMeta):
             print(f"Payments details saved to {self.file_name}")
 
 
-
-
-
 class PaymentWriter(ExecutorObserver):
     def update(self, payment):
         """Register payment info"""
         data_store = DataStore("payment_details.json")
 
+        existing_record = False
         for idx, _payment in enumerate(data_store.payments):
             if payment.reference == _payment["reference"]:
                 data_store.payments[idx] = payment.__dict__
+                existing_record = True
+
+        if not existing_record:
+            data_store.payments.append(payment.__dict__)
 
         data_store.save_payments()
