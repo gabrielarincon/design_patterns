@@ -20,6 +20,16 @@ class DebitProcessor(PaymentProcessorTemplate):
 class VisaDebitProcessor(DebitProcessor):
     """Visa Association Debit Payment Processor"""
 
+    def set_payment_method(self) -> None:
+        self.payment_method = DebitPayment()
+        self.processor.add_payment_method("visa-debit", self.payment_method)
+        print("Visa Debit payment method set.")
+
 
 class MastercardDebitProcessor(DebitProcessor):
     """MasterCard Association Debit Payment Processor"""
+
+    def set_payment_method(self) -> None:
+        self.payment_method = DebitPayment()
+        self.processor.add_payment_method("mastercard-debit", self.payment_method)
+        print("MasterCard Debit payment method set.")

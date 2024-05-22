@@ -14,5 +14,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Establece el comando predeterminado para ejecutar la aplicación
-CMD ["python", "server.py"]
+CMD ["python", "main.py"]
 

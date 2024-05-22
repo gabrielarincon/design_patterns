@@ -1,5 +1,5 @@
 from collections.abc import Mapping
-from processor.domain.payment import Payment
+from domain.payment import Payment
 
 
 class PercentageDiscount(Payment):

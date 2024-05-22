@@ -41,7 +41,7 @@ class RedisAdapter(IMessageBroker):
     def handle_message(self, message, app):
         payment = message.decode("utf-8")
         logger.info(f"Message received: {payment}")
-        app.process(loads(payment))
+        app.process_transaction(loads(payment))
 
 
 class Server:

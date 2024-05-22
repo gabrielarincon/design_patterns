@@ -2,6 +2,13 @@ from abc import ABC, abstractmethod
 
 
 class PaymentMethod(ABC):
+
+    @abstractmethod
+    def add_observer(self, observer) -> "PaymentMethod":
+        """
+        Abstract method to add observers
+        """
+
     @abstractmethod
     def process_payment(self, payment):
         """
