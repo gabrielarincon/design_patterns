@@ -1,13 +1,16 @@
-from domain.payment_processor import PaymentProcessor
-from domain.payment import Payment
 from abc import ABC, abstractmethod
+
+from domain.payment import Payment
+from domain.payment_methods import PaymentMethod
+from domain.payment_processor import PaymentProcessor
 
 
 class PaymentProcessorTemplate(ABC):
 
     def __init__(self):
-        self.payment = None
-        self.payment_method = None
+
+        self.payment: Payment
+        self.payment_method: PaymentMethod
         self.processor = PaymentProcessor()
 
     def process_payment(self, record):

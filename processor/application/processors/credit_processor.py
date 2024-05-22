@@ -19,6 +19,16 @@ class CreditProcessor(PaymentProcessorTemplate):
 class VisaCreditProcessor(CreditProcessor):
     """Visa Association Credit Payment Processor"""
 
+    def set_payment_method(self) -> None:
+        self.payment_method = CreditPayment()
+        self.processor.add_payment_method("visa-credit", self.payment_method)
+        print("Credit payment method set.")
+
 
 class MastercardCreditProcessor(CreditProcessor):
     """MasterCard Association Credit Payment Processor"""
+
+    def set_payment_method(self) -> None:
+        self.payment_method = CreditPayment()
+        self.processor.add_payment_method("mastercard-credit", self.payment_method)
+        print("MasterCard Credit payment method set.")

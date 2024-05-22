@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
-from collections.abc import Mapping
 
 from domain.discounts import DiscountPaymentFactory
 
-from processor.domain.payment import Payment
+from domain.payment import Payment
+from processor.domain.payment_methods import PaymentMethod
 
 
 class AbstractPaymentProcessor(ABC):
@@ -24,7 +24,7 @@ class PaymentProcessor(AbstractPaymentProcessor):
     def __init__(self):
         self.payment_strategies = {}
 
-    def add_payment_method(self, payment_method: str, strategy: Mapping):
+    def add_payment_method(self, payment_method: str, strategy: PaymentMethod):
         """Add a payment method to the processor"""
         self.payment_strategies[payment_method] = strategy
 
