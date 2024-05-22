@@ -1,19 +1,13 @@
-from abc import ABC, abstractmethod
 from collections.abc import Mapping
+from processor.domain.payment import Payment
 
 
-class DiscountDecorator(ABC):
-    @abstractmethod
-    def apply_charge(self) -> Mapping:
-        pass
-
-
-class PercentageDiscount(DiscountDecorator):
-    def __init__(self, payment, discount):
+class PercentageDiscount(Payment):
+    def __init__(self, payment: Payment, discount: int):
         self.payment = payment
         self.discount = discount
 
-    def apply_charge(self) -> Mapping:
+    def apply_charge(self) -> Payment:
         self.payment = self.payment.apply_charge()
         percentage = self.discount / 100
 
@@ -26,12 +20,12 @@ class PercentageDiscount(DiscountDecorator):
         return self.payment
 
 
-class TotalAmountDiscount(DiscountDecorator):
-    def __init__(self, payment, discount):
+class TotalAmountDiscount(Payment):
+    def __init__(self, payment: Payment, discount: int):
         self.payment = payment
         self.discount = discount
 
-    def apply_charge(self) -> Mapping:
+    def apply_charge(self) -> Payment:
         self.payment = self.payment.apply_charge()
 
         if self.payment.to_charge:
@@ -42,7 +36,7 @@ class TotalAmountDiscount(DiscountDecorator):
 
 
 class DiscountPaymentFactory:
-    def create_discount(self, discount, payment):
+    def create_discount(self, payment: Payment, discount: Mapping) -> Payment:
         if discount.get("discount_type") == "total_amount":
             payment = TotalAmountDiscount(payment, discount["value"])
         elif discount.get("discount_type") == "percentage":

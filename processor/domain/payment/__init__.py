@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from collections.abc import Mapping
 from typing import List, Optional
 
 
@@ -26,7 +25,7 @@ class Payment(BasePayment):
         self.to_charge = to_charge
         self.status = status
 
-    def apply_charge(self):
+    def apply_charge(self) -> 'Payment':
         if not self.to_charge:
             self.to_charge = self.amount
 

@@ -1,5 +1,9 @@
 from abc import ABC, abstractmethod
+from collections.abc import Mapping
+
 from domain.discounts import DiscountPaymentFactory
+
+from processor.domain.payment import Payment
 
 
 class AbstractPaymentProcessor(ABC):
@@ -20,23 +24,23 @@ class PaymentProcessor(AbstractPaymentProcessor):
     def __init__(self):
         self.payment_strategies = {}
 
-    def add_payment_method(self, payment_method, strategy):
+    def add_payment_method(self, payment_method: str, strategy: Mapping):
         """Add a payment method to the processor"""
         self.payment_strategies[payment_method] = strategy
 
-    def remove_payment_method(self, payment_method):
+    def remove_payment_method(self, payment_method: str):
         """Remove a payment method from the processor"""
         if payment_method in self.payment_strategies:
             del self.payment_strategies[payment_method]
 
-    def process_payment(self, payment):
+    def process_payment(self, payment: Payment):
         """Process a payment using the specified payment method"""
 
         payment_method = payment.payment_method
         discount_factory = DiscountPaymentFactory()
 
         for discount in payment.discounts:
-            payment = discount_factory.create_discount(discount, payment)
+            payment = discount_factory.create_discount(payment, discount)
 
         if payment_method in self.payment_strategies:
             strategy = self.payment_strategies[payment_method]
