@@ -74,7 +74,7 @@ class Application:
                 print(f"Error: {e}")
 
     def add_payment(self):
-        payment_method = input("Enter payment method [cash, debit, credit, pse]: ")
+        payment_method = input("Enter payment method [cash, mastercard-credit, mastercard-debit, visa-debit, pse]: ")
         amount = float(input("Enter payment amount: "))
         self.payment_facade.add_payment(payment_method, amount)
 
