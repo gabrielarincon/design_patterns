@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from domain.discounts import DiscountPaymentFactory
 
 from domain.payment import Payment
-from processor.domain.payment_methods import PaymentMethod
+from domain.payment_methods import PaymentMethod
 
 
 class AbstractPaymentProcessor(ABC):
